@@ -12,7 +12,7 @@ export default function Sidebar({imageData, setModal}) {
 
         <img src={imageData.url || marsPng } alt="" className='inline-block lg:hidden   w-full rounded-sm h-[14rem] object-cover' />
 
-        <h2  className='lg:text-4xl text-2xl' >{imageData || "The Brital Marsial Landscape"}</h2>
+        <h2  className='lg:text-4xl text-2xl' >{imageData.title || "The Brital Marsial Landscape"}</h2>
         
 </div>
         <div className='flex flex-col lg:gap-4 gap-2' >

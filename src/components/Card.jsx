@@ -34,7 +34,7 @@ const ViewUserPopUp =({date}) =>{
 const Card = ({imageData}) => {
 
     const minimizedText = imageData.explanation.split(" ").slice(0, 10).join(" ") + "..."
-
+    console.log(imageData)
   return (
     
 <Link 

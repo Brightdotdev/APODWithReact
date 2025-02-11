@@ -6,6 +6,7 @@ import { FaInfo } from 'react-icons/fa'
 import Sidebar from '../components/Sidebar'
 import BackToHome from '../components/Footer'
 import { fetchSingleDate } from '../Utils/Api'
+import NewtonsCradle from '../components/Loader'
 
 
 const Details = () => {
@@ -38,9 +39,8 @@ const Details = () => {
    
    if (Object.keys(imageData).length === 0) {
       return (
-         <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-black/30 to-black/32">
-            <p className="text-xl font-bold text-white/90">Loading...</p>
-         </div>
+   
+   <NewtonsCradle/>
       );
    }
 
