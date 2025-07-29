@@ -1,81 +1,109 @@
-# NASA APOD Explorer
+# NASA APOD Viewer
 
-Welcome to NASA APOD Explorer! This project fetches and displays images from NASA's Astronomy Picture of the Day (APOD) API, allowing users to explore space photography with descriptions and details.
+A React application that displays NASA's Astronomy Picture of the Day (APOD) using the NASA API.
 
-## 🌌 Features
+## Features
 
-- View the latest APOD image with its title and description
-- Browse past APODs using date navigation
-- Click on an image to view more details
-- Fully responsive UI built with React, Vite, and Tailwind CSS
+- Browse 2 weeks of APOD images
+- View detailed information for each image
+- Responsive design for mobile and desktop
+- Loading states and error handling
+- Client-side routing with React Router
 
-## 🚀 Tech Stack
+## Tech Stack
 
-### Frontend
-- React
+- React 18
 - Vite
 - Tailwind CSS
+- React Router DOM
+- NASA APOD API
 
-### API
-- [NASA APOD API](https://api.nasa.gov/)
+## Setup
 
-### Utilities
-- React Icons
-- React Hooks (State Management)
-- React Router (Routing)
-
-
-
-## 🛠 Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/Brightdotdev/APODWithReact.git
-cd APODWithReact
-```
-
+1. Clone the repository
 2. Install dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the root directory and add your NASA API key:
+   ```
+   VITE_API_KEY=your_nasa_api_key_here
+   ```
+4. Get your NASA API key from: https://api.nasa.gov/
 
-3. Create a `.env` file and add your NASA API key:
-```env
-VITE_NASA_API_KEY=your_api_key_here
-```
+## Development
 
-4. Start the development server:
 ```bash
 npm run dev
 ```
 
-## 🛰 API Usage
+## Build
 
-This project fetches data from the [NASA APOD API](https://api.nasa.gov/).  
-You will need to sign up for an API key from [NASA's API portal](https://api.nasa.gov/).
+```bash
+npm run build
+```
 
-## 🤖 How It Works
+## Deployment to Cloudflare Pages
 
-- Fetches APOD data from NASA API
-- Displays image, title, and description
-- Uses React Router for navigation
-- Implements responsive design with Tailwind CSS
+### Prerequisites
+- Cloudflare account
+- NASA API key
 
-## 💡 Future Improvements
+### Steps
 
-- Implement search functionality for specific dates
-- Add a favorites feature to save images
-- Improve UI with animations
-- Add image zoom functionality
+1. **Push your code to GitHub**
+   ```bash
+   git add .
+   git commit -m "Ready for deployment"
+   git push origin main
+   ```
 
-## 🤝 Contributing
+2. **Connect to Cloudflare Pages**
+   - Go to [Cloudflare Dashboard](https://dash.cloudflare.com/)
+   - Navigate to Pages
+   - Click "Create a project"
+   - Choose "Connect to Git"
+   - Select your GitHub repository
 
-Pull requests are welcome! If you find any issues, please open an issue in the repository.
+3. **Configure Build Settings**
+   - **Framework preset**: Vite
+   - **Build command**: `npm run build`
+   - **Build output directory**: `dist`
+   - **Root directory**: `/` (leave empty)
 
-## 📜 License
+4. **Environment Variables**
+   - Add your NASA API key as an environment variable:
+     - **Variable name**: `VITE_API_KEY`
+     - **Value**: Your NASA API key
 
-MIT License
+5. **Deploy**
+   - Click "Save and Deploy"
+   - Your app will be available at `https://your-project-name.pages.dev`
 
-*This project is purely for educational purposes and does not claim ownership over NASA's images.*
+### Environment Variables in Cloudflare Pages
 
-## Made by Bright...Brightdotdev
+Make sure to add these environment variables in your Cloudflare Pages project settings:
+
+- `VITE_API_KEY`: Your NASA API key
+
+## Project Structure
+
+```
+src/
+├── components/     # Reusable UI components
+├── Pages/         # Page components
+├── Utils/         # API functions and routing
+├── App.jsx        # Main app component
+└── main.jsx       # Entry point
+```
+
+## API Usage
+
+This app uses NASA's APOD API:
+- `fetchAll()`: Get 2 weeks of APOD data
+- `fetchToday()`: Get today's APOD
+- `fetchSingleDate(date)`: Get APOD for specific date
+
+## License
+
+MIT

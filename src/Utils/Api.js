@@ -4,8 +4,12 @@
 export const fetchAll =  async () => {
     
     const NASA_KEY = import.meta.env.VITE_API_KEY;
-    const startDate = "2025-01-01"; 
-    const endDate = "2025-02-11"; 
+    const today = new Date();
+    const twoWeeksAgo = new Date();
+    twoWeeksAgo.setDate(today.getDate() - 14);
+
+    const startDate = twoWeeksAgo.toISOString().split('T')[0];
+    const endDate = today.toISOString().split('T')[0];
 
     const url = `https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}&start_date=${startDate}&end_date=${endDate}`;
     
