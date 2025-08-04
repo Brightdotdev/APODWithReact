@@ -21,7 +21,13 @@ import FourOhFour from "../components/FourOhFour"
     { path : 'details/:date',
       // loader : dateLoader,
       element : <Details/>},
-  ])
+  
+          { path : '404',
+      // loader : dateLoader,
+      element : <FourOhFour/>},
+
+  
+    ])
   
 
 

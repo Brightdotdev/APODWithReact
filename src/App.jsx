@@ -15,8 +15,8 @@ const App = () => {
   const generateData = async () =>{
     const data = await fetchAll()
     console.log("data from app ", data)
-    console.log("reversedData " , data.reverse())
-    setArray(data)
+   
+    setArray(data.reverse())
   }
 
   useEffect(() =>{
@@ -31,9 +31,9 @@ const App = () => {
 
 
   return (
-    <div className='w-screen flex flex-wrap items-center justify-start gap-8 bg-linear-to-b from-black/30 to-black/32 pt-10 md:p-8 relative'>
+    <div className='w-screen flex flex-wrap items-center justify-start gap-8 bg-black/85 pt-10 md:p-8 relative'>
 {
-  arryData.reverse().map((imageData,index) =>(
+  arryData.map((imageData,index) =>(
     <Card key={index} imageData={imageData} />
   ))
 }
