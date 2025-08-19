@@ -1,98 +1,83 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import marsPng from '/mars.png'
-import { LuArrowUpRight } from 'react-icons/lu';
-import { formatDistanceToNowStrict, parseISO, isToday, isYesterday } from 'date-fns'
+import React from "react";
+import { Link } from "react-router-dom";
+import marsPng from "/mars.png";
+import { LuArrowUpRight } from "react-icons/lu";
+import { formatDistanceToNowStrict, parseISO, isToday, isYesterday } from "date-fns";
 
-// ...
-
+// 🔹 Pop-up component
 const ViewUserPopUp = ({ date }) => {
-  // Convert to JS date
-  const parsedDate = parseISO(date)
+  // Convert date safely
+  const parsedDate = date ? parseISO(date) : null;
 
-  // 🧠 Human-friendly label
-  const friendlyDate = isToday(parsedDate)
-    ? "Today"
-    : isYesterday(parsedDate)
-    ? "Yesterday"
-    : formatDistanceToNowStrict(parsedDate, { addSuffix: true }) // e.g. "3 days ago"
+  // Human-friendly label
+  const friendlyDate = parsedDate
+    ? isToday(parsedDate)
+      ? "Today"
+      : isYesterday(parsedDate)
+      ? "Yesterday"
+      : formatDistanceToNowStrict(parsedDate, { addSuffix: true })
+    : "Unknown";
 
   return (
-    <div className="absolute lg:hidden group-hover:flex z-50">
-      <div className="flex-col p-2 px-4 shadow-sm items-center justify-center bg-black relative lg:-top-[6rem] lg:left-[12rem] md:-top-[6rem] md:left-[1rem] -top-[6rem] left-[2rem] rounded-sm">
-        <h2 className="flex items-center gap-2 text-lg text-white/90 bg-black">
-          View APOD of <span>{friendlyDate}</span>
-          <LuArrowUpRight />
-        </h2>
+    <div
+      className="
+        absolute top-3 right-3 
+        flex md:hidden  /* Always show on mobile */
+        group-hover:flex  /* Show only on hover for larger screens */
+        z-50
+      "
+    >
+      <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-black/80 text-white text-xs sm:text-sm shadow-md">
+        <span>View APOD of {friendlyDate}</span>
+        <LuArrowUpRight size={14} />
       </div>
     </div>
-  )
-}
+  );
+};
 
+// 🔹 Main Card component
+const Card = ({ imageData }) => {
+  const minimizedText =
+    (imageData?.explanation?.split(" ").slice(0, 20).join(" ") ?? "") + "...";
 
-//image username fullname address
-const Card = ({imageData}) => {
-
-    const minimizedText = imageData.explanation.split(" ").slice(0, 10).join(" ") + "..."
-    console.log(imageData)
   return (
-    
-<Link 
-to={`/details/${imageData.date ? imageData.date : "no date" }`}
-aria-label={imageData.explanation}
-className={`
-cursor-pointer
-flex items-center justify-center lg:w-[46vw] 
-w-screen
-h-[14rem] group relative
-rounded-lg
-border-b-4 shadow-2xl
-border-black
-`}>
-        <ViewUserPopUp date={imageData.date}/>
-
-    <div
-    className="w-full h-full flex items-center 
-rounded-lg
-    
-    relative justify-center bg-cover bg-center"
-    style={{
-      backgroundImage: `url(${imageData.url || marsPng})`,
-    }}
-
+    <Link
+      to={`/details/${imageData?.date || "no-date"}`}
+      aria-label={imageData?.explanation || "NASA image card"}
+      className="
+        group cursor-pointer 
+        w-full 
+        h-[16rem] sm:h-[18rem] md:h-[20rem]
+        relative overflow-hidden rounded-xl
+        shadow-md border border-black/20
+        bg-black
+        transition-all duration-300
+      "
     >
-        <title>
-            {imageData.explanation}
-        </title>
-    <div className="flex flex-col gap-2
-    bg-gradient-to-r from-black/50 to-transparent
-    p-4
-    w-full
-    h-full
-rounded-lg
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+        style={{ backgroundImage: `url(${imageData?.url || marsPng})` }}
+      />
 
-    items-start
-    justify-end
-    ">
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
-        <h5 className="text-lg font-medium text-white/70 ">
-         Title: 
-        
-        <span className='text-white   '> {imageData.title || "THis is the mars image fallback"}
-        </span>
+      {/* Popup (hover for desktop, always for mobile) */}
+      <ViewUserPopUp date={imageData?.date} />
 
+      {/* Text Content */}
+      <div className="absolute bottom-0 p-3 sm:p-4 flex flex-col gap-2 text-white">
+        <h5 className="text-base sm:text-lg font-semibold">
+          {imageData?.title || "Mars Fallback Image"}
         </h5>
-        <p className="text-lg font-medium text-white/70">Description  :
-        
-         <span className='text-white '> {minimizedText  || "Uhm....It's an image of mars ig...sorry the api is currently down 🧍‍♂️" }
-          
-          </span>
-          </ p> 
-    </div>
-    </div>
-</Link>
+        <p className="text-xs sm:text-sm text-white/80 leading-snug">
+          {minimizedText ||
+            "Uhm... it's Mars I guess. The API might be down 🧍‍♂️"}
+        </p>
+      </div>
+    </Link>
+  );
+};
 
-  )
-}
-
-export default Card
+export default Card;
