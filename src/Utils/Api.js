@@ -15,9 +15,7 @@ export const fetchAll =  async () => {
     
     try {
       const response = await fetch(url); 
-      const apiData = await response.json(); 
-      console.log(apiData)
-      return apiData
+      return await response.json(); 
     } catch (error) {
       console.error('Error fetching data:', error.message);
     }
